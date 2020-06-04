@@ -38,7 +38,7 @@ How it works
 The SD card image contains:
 
 * Broadcom [VC4 boot firmware]: `bootcode.bin` and related files
-* [TianoCore EDK2] UEFI firmware built for the [RPi3] platform: `RPI_EFI.fd`
+* [TianoCore EDK2] UEFI firmware built for the [RPi4] platform: `RPI_EFI.fd`
 * [iPXE] built for the `arm64-efi` platform: `/efi/boot/bootaa64.efi`
 
 The Raspberry Pi has a somewhat convoluted boot process in which the
@@ -67,4 +67,4 @@ subproject licensing terms for more details:
 [Etcher]: https://www.balena.io/etcher
 [VC4 boot firmware]: https://github.com/raspberrypi/firmware/tree/master/boot
 [TianoCore EDK2]: https://github.com/tianocore/edk2
-[RPi3]: https://github.com/tianocore/edk2-platforms/tree/master/Platform/RaspberryPi/RPi3
+[RPi4]: https://github.com/tianocore/edk2-platforms/tree/master/Platform/RaspberryPi/RPi4
