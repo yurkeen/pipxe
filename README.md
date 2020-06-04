@@ -32,6 +32,17 @@ You will need various build tools installed, including a
 cross-compiling version of `gcc` for building AArch64 binaries.  See
 the [Dockerfile](Dockerfile) for hints on which packages to install.
 
+To build using the provided Dockerfile, use the following flow
+```sh
+
+# Build the Docker image first
+docker build -t pipxe-builder .
+# Build the pipxe image
+docker run --rm -it -v $(pwd):/opt/build pipxe-builder
+```
+As a result of a successfully completed build, the `sdcard.img` file should
+appear in the repository directory.
+
 How it works
 ------------
 

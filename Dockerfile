@@ -17,7 +17,5 @@ RUN dnf update -y \
     && dnf clean all
 
 RUN mkdir -p /opt/build
-
-COPY . /opt/build
-
-CMD make -C /opt/build
+WORKDIR /opt/build
+CMD make
