@@ -1,0 +1,56 @@
+name: build
+on:
+  push:
+    tags:
+      - 'build-*'
+      - 'release-*'
+jobs:
+  build:
+    name: Build PiPXE image
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: build
+        run: |
+          sudo apt-get -y update \
+          && sudo apt-get -y install \
+            binutils \
+            gcc \
+            gcc-aarch64-linux-gnu \
+            git \
+            acpica-tools \
+            uuid-dev \
+            make \
+            mtools \
+            perl \
+            python-minimal \
+            subversion \
+            liblzma-dev \
+          && make sdcard.img
+      - name: Timestamp
+        id: ts
+        if: startsWith(github.ref, 'refs/tags/release-')
+        run: echo "::set-output name=timestamp::$(date +'%Y-%m-%d.%H%M')"
+      - name: Create release
+        id: create_release
+        if: startsWith(github.ref, 'refs/tags/release-')
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ steps.ts.outputs.timestamp }}
+          draft: false
+          prerelease: false
+      - name: Upload release asset
+        id: upload-release-asset
+        if: startsWith(github.ref, 'refs/tags/release-')
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: sdcard.img
+          asset_name: pipxe-sdcard-${{ steps.ts.outputs.timestamp }}.img
+          asset_content_type: application/octet-stream
