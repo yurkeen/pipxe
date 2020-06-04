@@ -1,7 +1,7 @@
 piPXE - iPXE for the Raspberry Pi
 =================================
 
-[![Build Status](https://travis-ci.org/ipxe/pipxe.svg?branch=master)](https://travis-ci.org/ipxe/pipxe)
+[![Build Status](https://github.com/yurkeen/pipxe/workflows/build/badge.svg)](https://github.com/yurkeen/pipxe/actions?query=workflow:build)
 
 piPXE is a build of the [iPXE] network boot firmware for the
 [Raspberry Pi].
